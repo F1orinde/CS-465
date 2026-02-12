@@ -1,0 +1,19 @@
+<h1>{{title}}</h1>
+
+<p>Explore our available trips below. Each trip is loaded from trips.json and rendered with HBS.</p>
+
+<div class="trips">
+  {{#each trips}}
+    <div class="trip-card">
+      <h2>{{name}}</h2>
+      <p>{{description}}</p>
+      <ul>
+        <li><strong>Code:</strong> {{code}}</li>
+        <li><strong>Length:</strong> {{length}}</li>
+        <li><strong>Start:</strong> {{start}}</li>
+        <li><strong>Resort:</strong> {{resort}}</li>
+        <li><strong>Price per person:</strong> ${{perPerson}}</li>
+      </ul>
+    </div>
+  {{/each}}
+</div>

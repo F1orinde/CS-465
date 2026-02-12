@@ -1,0 +1,35 @@
+[
+  {
+    "code": "HA001",
+    "name": "Hawaii Adventure",
+    "length": "7 days",
+    "start": "2026-06-01",
+    "resort": "Pacific Breeze Resort",
+    "perPerson": 1799,
+    "price": "$1,799",
+    "image": "images/kayak.jpg",
+    "description": "Explore beaches, volcanoes, and local culture with guided island tours."
+  },
+  {
+    "code": "AC002",
+    "name": "Alaskan Cruise",
+    "length": "10 days",
+    "start": "2026-07-10",
+    "resort": "Glacier Point Lodge",
+    "perPerson": 2499,
+    "price": "$2,499",
+    "image": "images/reef1.jpg",
+    "description": "A scenic cruise with glacier views, wildlife spotting, and port excursions."
+  },
+  {
+    "code": "EH003",
+    "name": "European Highlights",
+    "length": "12 days",
+    "start": "2026-08-15",
+    "resort": "City Center Suites",
+    "perPerson": 3199,
+    "price": "$3,199",
+    "image": "images/dive-site.png",
+    "description": "Visit major cities and landmarks across Europe with flexible free time built in."
+  }
+]

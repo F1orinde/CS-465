@@ -1,0 +1,55 @@
+{{#section 'head'}}
+  <meta name="description" content="Travlr Getaways trip listings">
+{{/section}}
+
+{{#section 'header'}}
+  <div class="header">
+    <div>
+      <a href="/"><img src="/images/logo.png" alt="Travlr Getaways" class="logo"></a>
+      <ul class="navigation">
+        <li><a href="/" class="">Home</a></li>
+        <li class="selected"><a href="/travel" class="">Travel</a></li>
+        <li><a href="/rooms" class="">Rooms</a></li>
+        <li><a href="/meals" class="">Meals</a></li>
+        <li><a href="/news" class="">News</a></li>
+        <li><a href="/about" class="">About</a></li>
+        <li><a href="/contact" class="">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+{{/section}}
+
+{{#section 'content'}}
+  <div>
+    <h2>{{title}}</h2>
+    <div class="content">
+      <div>
+        <h3>Available trip options are loaded from MongoDB and returned in JSON via the /api endpoint.</h3>
+
+        {{#if trips.length}}
+          {{#each trips}}
+            <h4>{{name}}</h4>
+            <p>{{description}}</p>
+            <p>Duration: {{length}} days | Price: ${{perPerson}}</p>
+          {{/each}}
+        {{else}}
+          <p>No trips are currently available.</p>
+        {{/if}}
+
+      </div>
+      <div class="sidebar">
+        <ul>
+          <li>
+            <a href="/rooms"><img src="/images/rooms.png" alt="Rooms"></a>
+          </li>
+          <li>
+            <a href="/travel"><img src="/images/dive-site.png" alt="Travel"></a>
+          </li>
+          <li>
+            <a href="/meals"><img src="/images/food.png" alt="Meals"></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{{/section}}

@@ -1,0 +1,32 @@
+[
+  {
+    "code": "BEACH",
+    "name": "Sunny Beach Getaway",
+    "length": "7 days",
+    "start": "2026-02-01",
+    "resort": "Travlr Beach Resort",
+    "perPerson": 1299,
+    "image": "images/trip-beach.jpg",
+    "description": "A relaxing beach trip with ocean views."
+  },
+  {
+    "code": "CITY",
+    "name": "City Explorer Package",
+    "length": "4 days",
+    "start": "2026-03-10",
+    "resort": "Travlr City Hotel",
+    "perPerson": 899,
+    "image": "images/trip-city.jpg",
+    "description": "Food, museums, and nightlife in the heart of the city."
+  },
+  {
+    "code": "SKI",
+    "name": "Mountain Ski Adventure",
+    "length": "5 days",
+    "start": "2026-01-25",
+    "resort": "Travlr Mountain Lodge",
+    "perPerson": 1499,
+    "image": "images/trip-ski.jpg",
+    "description": "Skiing, hot cocoa, and winter views."
+  }
+]
