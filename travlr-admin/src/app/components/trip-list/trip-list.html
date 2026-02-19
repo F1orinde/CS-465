@@ -1,0 +1,42 @@
+<div class="container mt-4">
+
+  <h2 class="text-center mb-2">Available Trips</h2>
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <!-- No trips -->
+  <div *ngIf="!errorMessage && trips.length === 0" class="text-center">
+    <p>No trips found.</p>
+  </div>
+
+  <!-- Trips list -->
+  <div class="row" *ngIf="!errorMessage && trips.length > 0">
+    <div class="col-md-4 mb-4" *ngFor="let trip of trips">
+      <div class="card h-100 shadow-sm">
+        <img
+          class="card-img-top"
+          [src]="apiBase + trip.image"
+          [alt]="trip.name"
+        >
+
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ trip.name }}</h5>
+
+          <p class="card-text mb-1"><strong>Code:</strong> {{ trip.code }}</p>
+          <p class="card-text mb-1"><strong>Resort:</strong> {{ trip.resort }}</p>
+          <p class="card-text mb-1"><strong>Length:</strong> {{ trip.length }}</p>
+          <p class="card-text mb-2"><strong>Start:</strong> {{ formatStartDate(trip.start) }}</p>
+
+          <p class="card-text">{{ trip.description }}</p>
+
+          <p class="mt-auto mb-0">
+            <strong>${{ trip.perPerson }}</strong> per person
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
