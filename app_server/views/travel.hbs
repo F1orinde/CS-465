@@ -1,0 +1,33 @@
+<div>
+  <h2>Travel</h2>
+
+  <div class="content">
+    <div>
+      <h3>Available Trips</h3>
+
+      {{#if trips.length}}
+        {{#each trips}}
+          <h4>{{name}}</h4>
+
+          <p>
+            <img src="/{{image}}" alt="{{name}}" style="max-width: 320px; height: auto;">
+          </p>
+
+          <p>{{description}}</p>
+          <p>Length: {{length}} | Per Person: ${{perPerson}}</p>
+          <hr>
+        {{/each}}
+      {{else}}
+        <p>No trips are currently available.</p>
+      {{/if}}
+    </div>
+
+    <div class="sidebar">
+      <ul>
+        <li><a href="/rooms"><img src="/images/rooms.png" alt="Rooms"></a></li>
+        <li><a href="/travel"><img src="/images/dive-site.png" alt="Travel"></a></li>
+        <li><a href="/meals"><img src="/images/food.png" alt="Meals"></a></li>
+      </ul>
+    </div>
+  </div>
+</div>

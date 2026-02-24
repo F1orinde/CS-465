@@ -1,0 +1,24 @@
+<h2>Available Trips</h2>
+
+<div *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="trips.length === 0">
+  No trips found.
+</div>
+
+<div *ngFor="let trip of trips">
+
+  <h3>{{ trip.name }}</h3>
+
+  <p><strong>Code:</strong> {{ trip.code }}</p>
+  <p><strong>Length:</strong> {{ trip.length }}</p>
+  <p><strong>Start:</strong> {{ trip.start }}</p>
+  <p><strong>Resort:</strong> {{ trip.resort }}</p>
+  <p><strong>Price:</strong> ${{ trip.perPerson }}</p>
+  <p>{{ trip.description }}</p>
+
+  <hr>
+
+</div>
