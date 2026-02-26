@@ -1,0 +1,4 @@
+/* keep minimal to avoid redesign */
+form {
+  max-width: 700px;
+}

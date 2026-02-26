@@ -1,9 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { Router } from '@angular/router';
+
+import { Trip } from '../models/trip';
 
 @Component({
   selector: 'app-trip-card',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, CurrencyPipe],
   templateUrl: './trip-card.html',
-  styleUrl: './trip-card.css',
+  styleUrl: './trip-card.css'
 })
-export class TripCard {}
+export class TripCard {
+  @Input() trip: any;
+
+  constructor(private router: Router) {}
+
+  public editTrip(trip: Trip): void {
+    localStorage.removeItem('tripCode');
+    localStorage.setItem('tripCode', trip.code);
+    this.router.navigate(['edit-trip']);
+  }
+}

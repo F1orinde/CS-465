@@ -1,33 +1,7 @@
-<div class="container mt-4">
-  <h1 class="mb-4">Travlr Getaways Admin!</h1>
+<button (click)="addTrip()" class="btn btn-info">Add Trip</button>
 
-  <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let trip of trips">
-
-      <div class="card h-100">
-
-        <img
-          class="card-img-top"
-          src="assets/images/{{ trip.image }}"
-          alt="{{ trip.name }}">
-
-        <div class="card-body">
-
-          <h5 class="card-title">{{ trip.name }}</h5>
-
-          <p class="card-text">
-            <strong>Code:</strong> {{ trip.code }}<br>
-            <strong>Length:</strong> {{ trip.length }}<br>
-            <strong>Resort:</strong> {{ trip.resort }}<br>
-            <strong>Price:</strong> ${{ trip.perPerson }}
-          </p>
-
-          <div [innerHTML]="trip.description"></div>
-
-        </div>
-
-      </div>
-
-    </div>
+<div class="row">
+  <div *ngFor="let trip of trips" class="col-md-4">
+    <app-trip-card [trip]="trip"></app-trip-card>
   </div>
 </div>
