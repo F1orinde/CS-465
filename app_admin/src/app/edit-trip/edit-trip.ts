@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { TripDataService } from '../services/trip-data.service';
@@ -22,24 +22,28 @@ export class EditTrip implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private tripDataService: TripDataService
   ) {}
 
+  // Convenience getter for easy access to form fields in HTML
+  get f() {
+    return this.editForm.controls;
+  }
+
   ngOnInit(): void {
-    const tripCode = localStorage.getItem('tripCode');
+    const tripCode = this.route.snapshot.paramMap.get('tripCode');
 
     if (!tripCode) {
-      alert("Something wrong, couldn't find where I stashed tripCode!");
+      alert("Missing trip code in the URL. Can't load trip to edit.");
       this.router.navigate(['']);
       return;
     }
 
-    console.log('EditTrip::ngOnInit');
-    console.log('tripcode: ' + tripCode);
-
+    // Build the form so template bindings work immediately
     this.editForm = this.formBuilder.group({
       _id: [''],
-      code: [tripCode, Validators.required],
+      code: ['', Validators.required],
       name: ['', Validators.required],
       length: ['', Validators.required],
       start: ['', Validators.required],
@@ -49,47 +53,61 @@ export class EditTrip implements OnInit {
       description: ['', Validators.required]
     });
 
+    // Load the trip from the API
     this.tripDataService.getTrip(tripCode).subscribe({
-      next: (value: any) => {
-        this.trip = value;
-        // backend returns an array, guide uses first element
-        this.editForm.patchValue(value[0]);
-
+      next: (value: Trip[]) => {
         if (!value || value.length === 0) {
-          this.message = 'No Trip Retrieved!';
-        } else {
-          this.message = 'Trip: ' + tripCode + ' retrieved';
+          alert('Trip not found for code: ' + tripCode);
+          this.router.navigate(['']);
+          return;
         }
 
-        console.log(this.message);
+        this.trip = value[0];
+
+        this.editForm.patchValue({
+          _id: (this.trip as any)._id ?? '',
+          code: this.trip.code,
+          name: this.trip.name,
+          length: this.trip.length,
+          start: this.trip.start,
+          resort: this.trip.resort,
+          perPerson: this.trip.perPerson,
+          image: this.trip.image,
+          description: this.trip.description
+        });
       },
       error: (error: any) => {
         console.log('Error: ' + error);
+        alert('Error loading trip.');
+        this.router.navigate(['']);
       }
     });
   }
 
   public onSubmit(): void {
     this.submitted = true;
+    this.message = '';
 
-    if (this.editForm.valid) {
-      this.tripDataService.updateTrip(this.editForm.value).subscribe({
-        next: (value: any) => {
-          console.log(value);
-          this.router.navigate(['']);
-        },
-        error: (error: any) => {
-          console.log('Error: ' + error);
-        }
-      });
+    if (this.editForm.invalid) {
+      return;
     }
+
+    const updatedTrip: Trip = this.editForm.value as Trip;
+
+    this.tripDataService.updateTrip(updatedTrip).subscribe({
+      next: (value: Trip) => {
+        this.message = 'Trip updated successfully.';
+        this.router.navigate(['']);
+      },
+      error: (error: any) => {
+        console.log('Error: ' + error);
+        this.message = 'Error updating trip.';
+      }
+    });
   }
 
+  // Keeps your existing HTML working (it calls cancel())
   public cancel(): void {
     this.router.navigate(['']);
-  }
-
-  get f() {
-    return this.editForm.controls;
   }
 }

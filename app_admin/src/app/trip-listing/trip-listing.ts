@@ -1,10 +1,11 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { TripCard } from '../trip-card/trip-card';
 import { TripDataService } from '../services/trip-data.service';
 import { Trip } from '../models/trip';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-trip-listing',
@@ -20,8 +21,30 @@ export class TripListing implements OnInit {
   constructor(
     private tripDataService: TripDataService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private authService: AuthenticationService
   ) {}
+
+  public isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  public goLogin(): void {
+    this.router.navigate(['login']);
+  }
+
+  public goAddTrip(): void {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['login']);
+      return;
+    }
+    this.router.navigate(['add-trip']);
+  }
+
+  // Keeps your existing HTML working (it calls addTrip())
+  public addTrip(): void {
+    this.goAddTrip();
+  }
 
   private getStuff(): void {
     this.tripDataService.getTrips().subscribe({
@@ -31,7 +54,7 @@ export class TripListing implements OnInit {
         if (value.length > 0) {
           this.message = 'There are ' + value.length + ' trips available.';
         } else {
-          this.message = 'There were no trips retrieved from the database';
+          this.message = 'There were no trips retrieved from the database.';
         }
 
         this.cdr.detectChanges();
@@ -45,9 +68,5 @@ export class TripListing implements OnInit {
 
   ngOnInit(): void {
     this.getStuff();
-  }
-
-  public addTrip(): void {
-    this.router.navigate(['add-trip']);
   }
 }
